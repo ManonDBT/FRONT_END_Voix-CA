@@ -9,7 +9,7 @@ from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
 
-apiURL = 'http://149.91.88.54:1234//'
+apiURL = 'http://192.168.1.20:1234/'
 
 @blueprint.route('/index')
 @login_required
@@ -19,28 +19,25 @@ def index():
 
 @blueprint.route('/clients.html', methods=['GET', 'POST'])
 def clients():
-    _clients = requests.get(apiURL+'clients').json()
+
     _createForm = CreateClient(request.form)
     if 'add' in request.form:
         #read data from create form
-        prenom = request.form['prenom']
-        nom = request.form['nom']
-        _toSend = {'prenom': prenom,'nom':nom}
-        _toSend = json.dumps(_toSend)
+        _toSend = request.form
         #request to api
-        retour = requests.post(apiURL+'client', json=_toSend).status_code
-
-        if retour == 201:
-            return render_template('clients.html', segment='clients', clients=_clients)
+        retour = requests.post(apiURL+'client', json=_toSend)
+        _clients = requests.get(apiURL + 'clients').json()
+        if retour.status_code == 201:
+            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm)
         else:
-            return render_template('clients.html', segment='clients', clients=_clients, msg='Erreur d\'ajout du client')
+            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm ,msg='Erreur d\'ajout du client')
 
     if 'modify' in request.form:
         return True;
 
     if 'delete' in request.form:
         return True;
-
+    _clients = requests.get(apiURL + 'clients').json()
     return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm)
 
 
