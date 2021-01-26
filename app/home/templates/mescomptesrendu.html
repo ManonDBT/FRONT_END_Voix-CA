@@ -1,0 +1,73 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <main class="content">
+
+      {% include 'includes/navigation.html' %}
+
+      <div class="py-4">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                  <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Comptes-rendus clients</li>
+              </ol>
+          </nav>
+          <div class="d-flex justify-content-between w-100 flex-wrap">
+              <div class="mb-3 mb-lg-0">
+                  <h1 class="h4">Comptes-rendus</h1>
+                  <p class="mb-0">Analyse des comptes rendus clients</p>
+              </div>
+
+      <div class="card border-light shadow-sm mb-4">
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-centered table-nowrap mb-0 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">#</th>
+                              <th class="border-0">Date</th>
+                              <th class="border-0">Client</th>
+                              <th class="border-0">Compte-rendu</th>
+                              <th class="border-0">Thème du compte-rendu</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      {% for data in datas.data %}
+                          <!-- Item -->
+                          <tr>
+                              <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
+                              <td class="border-0">{{ data.date_creation }}</td>
+                              <td class="border-0 font-weight-bold">{{ data.id_client }}</td>
+                              <td class="border-0"> {{ data.compte_rendu }}</td>
+                              <td class="border-0"> {{ data.categories }}</td>
+                              <td class="border-0">
+                                  <button class="btn btn-info" type="button"><i class="far fa-eye"></i> </button>
+                                  <button class="btn btn-warning" type="button"><i class="far fa-edit"></i> </button>
+                                  <button class="btn btn-danger" type="button"><i class="fas fa-trash"></i> </button>
+                              </td>
+                          </tr>
+                      {% endfor %}
+
+
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+      
+      {% include 'includes/footer.html' %}
+
+  </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
