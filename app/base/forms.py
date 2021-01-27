@@ -2,28 +2,30 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import TextField, PasswordField
+from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import InputRequired, Email, DataRequired
 
 ## login and registration
 
 class LoginForm(FlaskForm):
-    username = TextField    ('Username', id='username_login'   , validators=[DataRequired()])
+    username = StringField    ('Username', id='username_login'   , validators=[DataRequired()])
     password = PasswordField('Password', id='pwd_login'        , validators=[DataRequired()])
 
 class CreateAccountForm(FlaskForm):
-    username = TextField('Username'     , id='username_create' , validators=[DataRequired()])
-    email    = TextField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
+    username = StringField('Username'     , id='username_create' , validators=[DataRequired()])
+    email    = StringField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
     password = PasswordField('Password' , id='pwd_create'      , validators=[DataRequired()])
 
 ## Clients
 class CreateClient(FlaskForm):
-    nom = TextField('nom', id='nom_client', validators=[DataRequired()])
-    prenom = TextField('prenom', id='prenom_client', validators=[DataRequired()])
+    nom    = StringField('nom', id='nom_client', validators=[DataRequired()])
+    prenom = StringField('prenom', id='prenom_client', validators=[DataRequired()])
 
 ## Compte-rendu
 class CreateData(FlaskForm):
-    client = TextField('client', id='id_client', validators=[DataRequired()])
-    compte_rendu = TextField('compte-rendu', id='compte_rendu', validators=[DataRequired()])
+    client = SelectField('test', id='test_client')
+    id_client    = StringField('client', id='id_client', validators=[DataRequired()])
+    compte_rendu = StringField('compte-rendu', id='compte_rendu', validators=[DataRequired()])
+    id_collab = StringField('id_collab', id='id_collab', validators=[DataRequired()])

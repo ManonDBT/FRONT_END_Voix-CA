@@ -3,13 +3,13 @@ import json
 
 import requests
 from app.home import blueprint
-from app.base.forms import CreateClient
+from app.base.forms import CreateClient, CreateData
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
 
-apiURL = 'http://192.168.1.20:1234/'
+apiURL = 'http://192.168.1.19:1234/'
 
 @blueprint.route('/index')
 @login_required
@@ -30,7 +30,8 @@ def clients():
         if retour.status_code == 201:
             return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm)
         else:
-            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm ,msg='Erreur d\'ajout du client')
+            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm,
+                                   msg='Erreur d\'ajout du client')
 
     if 'modify' in request.form:
         return True;
@@ -43,8 +44,31 @@ def clients():
 
 @blueprint.route('/mescomptesrendu.html', methods=['GET', 'POST'])
 def data():
-    _data = requests.get(apiURL+'data').json()
-    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_data)
+    _createForm = CreateData(request.form)
+    _liste_client = requests.get(apiURL + 'clients').json()
+    if 'add' in request.form:
+        # read data from create form
+        _toSend = request.form
+        # request to api
+        retour = requests.post(apiURL + 'data', json=_toSend)
+        _datas = requests.get(apiURL + 'datas').json()
+        if retour.status_code == 201:
+            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm)
+        else:
+            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,
+                                   msg='Erreur d\'ajout du compte-rendu')
+
+    if 'modify' in request.form:
+        return True;
+
+    if 'delete' in request.form:
+        return True;
+    _datas = requests.get(apiURL + 'datas').json()
+    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, listeclient=_liste_client)
+
+
+    """_data = requests.get(apiURL+'data').json()
+    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_data)"""
 
 
 @blueprint.route('/<template>')
