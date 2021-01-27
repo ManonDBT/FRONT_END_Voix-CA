@@ -25,7 +25,6 @@ class CreateClient(FlaskForm):
 
 ## Compte-rendu
 class CreateData(FlaskForm):
-    client = SelectField('test', id='test_client')
-    id_client    = StringField('client', id='id_client', validators=[DataRequired()])
+    id_client = SelectField('id_client', id='id_client', validators=[DataRequired()])
     compte_rendu = StringField('compte-rendu', id='compte_rendu', validators=[DataRequired()])
     id_collab = StringField('id_collab', id='id_collab', validators=[DataRequired()])

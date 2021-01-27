@@ -9,7 +9,7 @@ from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
 
-apiURL = 'http://192.168.1.19:1234/'
+apiURL = 'http://0.0.0.0:1234/'
 
 @blueprint.route('/index')
 @login_required
@@ -45,7 +45,8 @@ def clients():
 @blueprint.route('/mescomptesrendu.html', methods=['GET', 'POST'])
 def data():
     _createForm = CreateData(request.form)
-    _liste_client = requests.get(apiURL + 'clients').json()
+    _listeclient = requests.get(apiURL + 'clients').json()
+    _createForm.id_client.choices = [(i['id'], i['nom']+" "+i['prenom']) for i in _listeclient['clients']]
     if 'add' in request.form:
         # read data from create form
         _toSend = request.form
@@ -53,9 +54,9 @@ def data():
         retour = requests.post(apiURL + 'data', json=_toSend)
         _datas = requests.get(apiURL + 'datas').json()
         if retour.status_code == 201:
-            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm)
+            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
         else:
-            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,
+            return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,clients=_listeclient,
                                    msg='Erreur d\'ajout du compte-rendu')
 
     if 'modify' in request.form:
@@ -64,7 +65,7 @@ def data():
     if 'delete' in request.form:
         return True;
     _datas = requests.get(apiURL + 'datas').json()
-    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, listeclient=_liste_client)
+    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 
 
     """_data = requests.get(apiURL+'data').json()

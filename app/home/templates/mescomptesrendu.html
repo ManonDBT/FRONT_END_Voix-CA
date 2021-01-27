@@ -34,107 +34,43 @@
                     </div>
                 </div>
             </div>
-            <div class="table-settings mb-4">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col col-md-6 col-lg-3 col-xl-4">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon2"><span class="fas fa-search"></span></span>
-                            <input type="text" class="form-control" id="exampleInputIconLeft" placeholder="Rechercher" aria-label="Search" aria-describedby="basic-addon2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body border-light shadow-sm table-wrapper table-responsive pt-0">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Date</th>
-                            <th>id_client</th>
-                            <th>id_collaborateur</th>
-                            <th>compte-rendu</th>
-                            <th>categories</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Item -->
-
-                      {% for data in datas.datas %}
+                  <div class="card border-light shadow-sm mb-4">
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-centered table-nowrap mb-0 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">#</th>
+                              <th class="border-0">Collab</th>
+                              <th class="border-0">Client</th>
+                              <th class="border-0">Categorie</th>
+                              <th class="border-0">Traitement</th>
+                              <th class="border-0">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for data in datas.Data %}
                           <!-- Item -->
                           <tr>
                               <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
-                              <td class="border-0">{{ data.date_creation }}</td>
-                              <td class="border-0 font-weight-bold">{{ data.id_client }}</td>
                               <td class="border-0 font-weight-bold">{{ data.id_collab }}</td>
-                              <td class="border-0"> {{ data.compte_rendu }}</td>
+                              <td class="border-0">{{ data.id_client }}</td>
                               <td class="border-0"> {{ data.categories }}</td>
+                              <td class="border-0"> {{ data.isProcessed }}</td>
+
                               <td class="border-0">
                                   <button class="btn btn-info" type="button"><i class="far fa-eye"></i> </button>
                                   <button class="btn btn-warning" type="button"><i class="far fa-edit"></i> </button>
-                                  <button class="btn btn-danger" type="button"><i class="fas fa-trash"></i> </button>
+                                  <button class="btn btn-danger" type="button" name="btnDelete" value=""><i class="fas fa-trash"></i> </button>
                               </td>
                           </tr>
-                      <!-- End of Item -->
+                          <!-- End of Item -->
                       {% endfor %}
-                    </tbody>
-
-
-
-                    <!-- Item -->
-                        <tr>
-                            <td>
-                                <a href="/static/assets/invoice.html" class="font-weight-bold">
-                                    456478
-                                </a>
-                            </td>
-                            <td>
-                                <span class="font-weight-normal">Platinum Subscription Plan</span>
-                            </td>
-                            <td><span class="font-weight-normal">1 May 2020</span></td>
-                            <td><span class="font-weight-normal">1 Jun 2020</span></td>
-                            <td><span class="font-weight-bold">$799,00</span></td>
-                            <td><span class="font-weight-bold text-warning">Due</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="icon icon-sm">
-                                            <span class="fas fa-ellipsis-h icon-dark"></span>
-                                        </span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/static/assets/invoice.html"><span class="fas fa-eye mr-2"></span>View Details</a>
-                                        <a class="dropdown-item" href="#"><span class="fas fa-edit mr-2"></span>Edit</a>
-                                        <a class="dropdown-item text-danger" href="#"><span class="fas fa-trash-alt mr-2"></span>Remove</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- page suivante -->
-                <div class="card-footer px-3 border-0 d-flex align-items-center justify-content-between">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination mb-0">
-                            <li class="page-item">
-                                <a class="page-link" href="#">Previous</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">2</a>
-
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="font-weight-bold small">Showing <b>5</b> out of <b>25</b> entries</div>
-                </div>
-            </div>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
 
         <!-- Modal ajout compte rendu -->
         <!-- Modal Content -->
@@ -153,28 +89,17 @@
                                     {{ createForm.hidden_tag() }}
 
                                     <!-- Form -->
-                                    {{ createForm.id_collab(placeholder="12345", type="hidden", value = current_user.username ) }}
+                                    {{ createForm.id_collab(type="hidden", value = current_user.username ) }}
                                     <!-- End of Form -->
 
                                     <div class="form-group">
 
-                                    <!-- Form -->
-                                    <div class="form-group mb-4">
-                                        <label for="login_email">ID client</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon1"><span class="fas fa-signature"></span></span>
-                                            {{ createForm.id_client(placeholder="12345", class="form-control") }}
-                                        </div>
-                                    </div>
                                         <!-- End of Form -->
 
                                         <!-- Form -->
                                         <div class="form-group mb-4">
-                                            <label for="login_email">ID client</label>
-                                                <div class="input-group">
-                                                     <span class="form-select" id="basic-addon1"><span class="fas fa-signature"></span></span>
-                                                        {{ createForm.client(choises=listeclient, class="form-control") }}
-                                                </div>
+                                            <label class="my-1 mr-2" for="id_client">Client</label>
+                                            {{createForm.id_client(class="form-select")}}
                                         </div>
                                         <!-- End of Form -->
 
@@ -185,7 +110,7 @@
                                             <label for="login_password">compte-rendu</label>
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon2"><span class="fas fa-signature"></span></span>
-                                                {{ createForm.compte_rendu(placeholder="écrire ici", class="form-control") }}
+                                                {{ createForm.compte_rendu(class="form-control") }}
                                             </div>
                                         </div>
                                         <!-- End of Form -->
