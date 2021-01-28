@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField
+from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms.validators import InputRequired, Email, DataRequired
 
 ## login and registration
@@ -26,5 +26,5 @@ class CreateClient(FlaskForm):
 ## Compte-rendu
 class CreateData(FlaskForm):
     id_client = SelectField('id_client', id='id_client', validators=[DataRequired()])
-    compte_rendu = StringField('compte-rendu', id='compte_rendu', validators=[DataRequired()])
+    compte_rendu = TextAreaField('compte-rendu', id='compte_rendu', validators=[DataRequired()])
     id_collab = StringField('id_collab', id='id_collab', validators=[DataRequired()])

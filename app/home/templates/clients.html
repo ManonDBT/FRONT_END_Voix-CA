@@ -32,7 +32,7 @@
       <div class="card border-light shadow-sm mb-4">
           <div class="card-body">
               <div class="table-responsive">
-                  <table class="table table-centered table-nowrap mb-0 rounded">
+                  <table id="tableClient" class="table table-centered table-nowrap mb-0 rounded">
                       <thead class="thead-light">
                           <tr>
                               <th class="border-0">#</th>
@@ -53,7 +53,8 @@
                               <td class="border-0">
                                   <button class="btn btn-info" type="button"><i class="far fa-eye"></i> </button>
                                   <button class="btn btn-warning" type="button"><i class="far fa-edit"></i> </button>
-                                  <button class="btn btn-danger" type="button" name="btnDelete" value="{{ client.id }}"><i class="fas fa-trash"></i> </button>
+                                  <button class="btn btn-danger" type="button" name="btnDelete" value="{{ client.id }}"><i class="fas fa-trash"></i>
+                                  </button>
                               </td>
                           </tr>
                           <!-- End of Item -->
@@ -107,12 +108,13 @@
                 </div>
             </div>
         </div>
-        <!-- End of Modal Content -->
+      <!-- End of Modal Content -->
+
       {% include 'includes/footer.html' %}
 
   </main>
 
-{% endblock content %}
+
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
@@ -124,7 +126,7 @@
                 id = $(this).val();
                 console.log(id);
                 $.ajax({
-                    url: './deleteClient'+id,
+                    url: './delete/'+id,
                     crossDomain: true,
                     crossOrigin: true,
                     type: 'DELETE',
@@ -141,4 +143,6 @@
 
         }
     </script>
+
 {% endblock javascripts %}
+{% endblock content %}

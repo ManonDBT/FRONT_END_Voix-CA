@@ -39,7 +39,7 @@ def clients():
     if 'delete' in request.form:
         return True;
     _clients = requests.get(apiURL + 'clients').json()
-    return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm)
+    return render_template('clients.html', segment='client', clients=_clients, createForm=_createForm)
 
 
 @blueprint.route('/mescomptesrendu.html', methods=['GET', 'POST'])
@@ -68,8 +68,7 @@ def data():
     return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 
 
-    """_data = requests.get(apiURL+'data').json()
-    return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_data)"""
+
 
 
 @blueprint.route('/<template>')
