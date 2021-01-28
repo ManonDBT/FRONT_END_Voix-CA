@@ -40,7 +40,7 @@
                       <thead class="thead-light">
                           <tr>
                               <th class="border-0">#</th>
-                              <th class="border-0">Collab</th>
+                              <th class="border-0">Date</th>
                               <th class="border-0">Client</th>
                               <th class="border-0">Categorie</th>
                               <th class="border-0">Traitement</th>
@@ -55,12 +55,16 @@
                               <td class="border-0 font-weight-bold">{{ data.id_collab }}</td>
                               <td class="border-0">{{ data.id_client }}</td>
                               <td class="border-0"> {{ data.categories }}</td>
-                              <td class="border-0"> {{ data.isProcessed }}</td>
+                              <td class="border-0">
+                                  {% if data.isProcessed == true %}
+                                    <i class="fas fa-check-circle btn-lg" style="color: green"></i>
+                                  {% else %}
+                                    <i class="fas fa-times-circle btn-lg" style="color: red"></i>
+                                  {% endif %}
+                              </td>
 
                               <td class="border-0">
-                                  <button class="btn btn-info" type="button"><i class="far fa-eye"></i> </button>
-                                  <button class="btn btn-warning" type="button"><i class="far fa-edit"></i> </button>
-                                  <button class="btn btn-danger" type="button" name="btnDelete" value=""><i class="fas fa-trash"></i> </button>
+                                  <button class="btn btn-info" name="btnLecture" type="button" value="{'client':'{{data.id_client}}','cr':'{{data.compte_rendu}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
                           <!-- End of Item -->
@@ -70,6 +74,55 @@
               </div>
           </div>
       </div>
+
+
+        <!-- Modal lecture d'un compte rendu -->
+        <!-- Modal Content -->
+        <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form_signup" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card border-light p-4">
+                            <button type="button" class="btn-close ml-auto" data-dismiss="modal" aria-label="Close"></button>
+                            <div class="card-header border-0 text-center pb-0">
+                                <h2 class="h4">Consultation compte-rendu</h2>
+                                <span>Vous consultez ici le compte-rendu</span>
+                            </div>
+                            <div class="card-body">
+                                <form class="mt-4">
+                                    <!-- End of Form -->
+                                    <div class="form-group">
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label class="my-1 mr-2" for="id_client">Client</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
+                                                <select class="form-select" disabled>
+                                                    <option id="lect_client" value="test" selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="compte_rendu">compte-rendu</label>
+                                            <div class="input-group">
+                                                <textarea id="lect_compterendu" rows="5" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Modal Content -->
 
         <!-- Modal ajout compte rendu -->
         <!-- Modal Content -->
@@ -92,28 +145,28 @@
                                     <!-- End of Form -->
 
                                     <div class="form-group">
-
                                         <!-- Form -->
                                         <div class="form-group mb-4">
                                             <label class="my-1 mr-2" for="id_client">Client</label>
-                                            {{createForm.id_client(class="form-select")}}
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
+                                                {{createForm.id_client(class="form-select")}}
+                                            </div>
                                         </div>
                                         <!-- End of Form -->
+                                    </div>
 
                                     <div class="form-group">
-
                                         <!-- Form -->
                                         <div class="form-group mb-4">
                                             <label for="compte_rendu">compte-rendu</label>
                                             <div class="input-group">
-                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-signature"></span></span>
-                                                {{ createForm.compte_rendu(class="form-control") }}
+                                                {{ createForm.compte_rendu(class="form-control", rows="5" ) }}
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
                                     <button type="submit" name="add" class="btn btn-block btn-primary">Enregister</button>
-
                                 </form>
                             </div>
                         </div>
@@ -123,6 +176,9 @@
         </div>
         <!-- End of Modal Content -->
 
+
+
+
         {% include 'includes/footer.html' %}
 
     </main>
@@ -130,4 +186,22 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script type="application/javascript">
+    $( document ).ready(function() {
+            console.log( "ready!" );
+            $('button[name="btnLecture"]').on('click', function (){
+                console.log('dans btnLecture ' );
+                var data = $(this).val();
+                console.log('data vaut :' + data.replaceAll('\'','"'));
+                var json = JSON.parse(data.replaceAll('\'','"'));
+                console.log('json vaut :' + json);
+                $('#lect_client').html(json.client);
+                console.log('lect_client remplacé par ' + json.client );
+                $('#lect_compterendu').html(json.cr);
+                console.log('lect_compterendu remplacé par '+ json.cr);
+            });
+
+    });
+</script>
+{% endblock javascripts %}
