@@ -17,11 +17,11 @@
                         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                           <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
                           <li class="breadcrumb-item"><a href="#">Voix-CA</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Comptes-rendus</li>
+                          <li class="breadcrumb-item active" aria-current="page">Mes comptes-rendus</li>
                         </ol>
                     </nav>
-                    <h2 class="h4">Comptes-rendus</h2>
-                    <p class="mb-0">Analyse des comptes-clients en fonction de leurs catégories</p>
+                    <h2 class="h4">Mes comptes-rendus</h2>
+                    <p class="mb-0">Analyse de mes comptes-rendus</p>
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group" style="margin-right:0.5rem;">
@@ -42,7 +42,7 @@
                               <th class="border-0">#</th>
                               <th class="border-0">Date</th>
                               <th class="border-0">Client</th>
-                              <th class="border-0">Categorie</th>
+                              <th class="border-0">Categorie(s)</th>
                               <th class="border-0">Traitement</th>
                               <th class="border-0">Action</th>
                           </tr>
@@ -52,11 +52,21 @@
                           <!-- Item -->
                           <tr>
                               <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
-                              <td class="border-0 font-weight-bold">{{ data.id_collab }}</td>
-                              <td class="border-0">{{ data.id_client }}</td>
-                              <td class="border-0"> {{ data.categories }}</td>
+                              <td class="border-0 font-weight-bold">{{ data.datecreation }}</td>
+                              <td class="border-0">{{ data.client }}</td>
                               <td class="border-0">
-                                  {% if data.isProcessed == true %}
+                                  {% if 'null' not in data.categories %}
+                                  {% set washdata = data.categories.replace('"','').replace('[','').replace(']','') %}
+                                  {% set list1 = washdata.split(',') %}
+                                    <ul>
+                                        {% for item in list1 %}
+                                        <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                  {% endif %}
+                              </td>
+                              <td class="border-0">
+                                  {% if data.traitement == true %}
                                     <i class="fas fa-check-circle btn-lg" style="color: green"></i>
                                   {% else %}
                                     <i class="fas fa-times-circle btn-lg" style="color: red"></i>
@@ -64,7 +74,7 @@
                               </td>
 
                               <td class="border-0">
-                                  <button class="btn btn-info" name="btnLecture" type="button" value="{'client':'{{data.id_client}}','cr':'{{data.compte_rendu}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
+                                  <button class="btn btn-info" name="btnLecture" type="button" value="{'client':'{{data.client}}','cr':'{{data.compte_rendu}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
                           <!-- End of Item -->

@@ -8,10 +8,9 @@ from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-import flask_excel as excel
 
 
-apiURL = 'http://0.0.0.0:1234/'
+apiURL = 'http://192.168.1.23:1234/'
 
 
 @blueprint.route('/index')
@@ -55,19 +54,16 @@ def data():
         _toSend = request.form
         # request to api
         retour = requests.post(apiURL + 'data', json=_toSend)
-        _datas = requests.get(apiURL + 'datas').json()
+        _datas = requests.get(apiURL + 'datas/extended').json()
         if retour.status_code == 201:
             return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
         else:
             return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,clients=_listeclient,
                                    msg='Erreur d\'ajout du compte-rendu')
 
-    if 'modify' in request.form:
-        return True;
-
     if 'delete' in request.form:
         return True;
-    _datas = requests.get(apiURL + 'datas').json()
+    _datas = requests.get(apiURL + 'datas/extended').json()
     return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 
 
