@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Transactions {% endblock %}
+{% block title %} Comptes-rendus {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -39,22 +39,22 @@
                   <table class="table table-centered table-nowrap mb-0 rounded" id="tblData">
                       <thead class="thead-light">
                           <tr>
-                              <th class="border-0">#</th>
-                              <th class="border-0">Date</th>
-                              <th class="border-0">Client</th>
-                              <th class="border-0">Categorie(s)</th>
-                              <th class="border-0">Traitement</th>
-                              <th class="border-0">Action</th>
+                              <th class="border-1">#</th>
+                              <th class="border-1">Date</th>
+                              <th class="border-1">Client</th>
+                              <th class="border-1">Thèmes</th>
+                              <th class="border-1">Traitement</th>
+                              <th class="border-1">Action</th>
                           </tr>
                       </thead>
                       <tbody>
                         {% for data in datas.Data %}
                           <!-- Item -->
                           <tr>
-                              <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
-                              <td class="border-0 font-weight-bold">{{ data.datecreation }}</td>
-                              <td class="border-0">{{ data.client }}</td>
-                              <td class="border-0">
+                              <td class="border-1"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
+                              <td class="border-1 font-weight-bold">{{ data.datecreation }}</td>
+                              <td class="border-1">{{ data.client }}</td>
+                              <td class="border-1">
                                   {% if 'null' not in data.categories %}
                                   {% set washdata = data.categories.replace('"','').replace('[','').replace(']','') %}
                                   {% set list1 = washdata.split(',') %}
@@ -65,7 +65,7 @@
                                     </ul>
                                   {% endif %}
                               </td>
-                              <td class="border-0">
+                              <td class="border-1">
                                   {% if data.traitement == true %}
                                     <i class="fas fa-check-circle btn-lg" style="color: green"></i>
                                   {% else %}
@@ -73,7 +73,7 @@
                                   {% endif %}
                               </td>
 
-                              <td class="border-0">
+                              <td class="border-1">
                                   <button class="btn btn-info" name="btnLecture" type="button" value="{'client':'{{data.client}}','cr':'{{data.compte_rendu}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
@@ -125,6 +125,8 @@
                                         </div>
                                         <!-- End of Form -->
                                     </div>
+                                   <button type="submit" class="btn btn-block btn-primary">Fermer le compte rendu </button>
+
                                 </form>
                             </div>
                         </div>
@@ -171,12 +173,14 @@
                                         <div class="form-group mb-4">
                                             <label for="compte_rendu">compte-rendu</label>
                                             <div class="input-group">
+
                                                 {{ createForm.compte_rendu(class="form-control", rows="5" ) }}
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
                                     <button type="submit" name="add" class="btn btn-block btn-primary">Enregister</button>
+                                    <button type="reset" class="btn btn-block btn-primary">Reset</button>
                                 </form>
                             </div>
                         </div>

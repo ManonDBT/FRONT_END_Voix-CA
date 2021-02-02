@@ -36,35 +36,168 @@
                   <table id="tableClient" class="table table-centered table-nowrap mb-0 rounded">
                       <thead class="thead-light">
                           <tr>
-                              <th class="border-0">#</th>
-                              <th class="border-0">Nom</th>
-                              <th class="border-0">Prénom</th>
-                              <th class="border-0">Caisse Régionale</th>
-                              <th class="border-0">Action</th>
+                              <th class="border-1">#</th>
+                              <th class="border-1">Nom</th>
+                              <th class="border-1">Prénom</th>
+                              <th class="border-1">Caisse Régionale</th>
+                              <th class="border-1">Action</th>
                           </tr>
                       </thead>
                       <tbody>
                         {% for client in clients.clients %}
+
+
                           <!-- Item -->
                           <tr>
-                              <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ client.id }}</a> </td>
-                              <td class="border-0 font-weight-bold">{{ client.nom }}</td>
-                              <td class="border-0">{{ client.prenom }}</td>
-                              <td class="border-0"> {{ client.id }}</td>
-                              <td class="border-0">
-                                  <button class="btn btn-info" type="button"><i class="far fa-file-alt"></i> </button>
-                                  <button class="btn btn-warning" type="button"><i class="far fa-edit"></i> </button>
+                              <td class="border-1"><a href="#" class="text-primary font-weight-bold">{{ client.id }}</a> </td>
+                              <td class="border-1 font-weight-bold">{{ client.nom }}</td>
+                              <td class="border-1">{{ client.prenom }}</td>
+                              <td class="border-1"> {{ client.id }}</td>
+                              <td class="border-1">
+                                  <button class="btn btn-info" name="btnInfo" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-file-alt"></i> </button>
+                                  <button class="btn btn-warning" name="btnModify" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-edit"></i> </button>
                                   <button class="btn btn-danger" type="button" name="btnDelete" value="{{ client.id }}"><i class="fas fa-trash"></i>
                                   </button>
                               </td>
                           </tr>
                           <!-- End of Item -->
-                      {% endfor %}
+                        {% endfor %}
                       </tbody>
                   </table>
               </div>
           </div>
       </div>
+
+      <!-- Modal lecture d'un client -->
+        <!-- Modal Content -->
+        <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form_signup" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card border-light p-4">
+                            <button type="button" class="btn-close ml-auto" data-dismiss="modal" aria-label="Close"></button>
+                            <div class="card-header border-0 text-center pb-0">
+                                <h2 class="h4">Consultation d'un client</h2>
+                                <span>Vous consultez ici la fiche client</span>
+                            </div>
+                            <div class="card-body">
+                                <form class="mt-4">
+                                    <!-- End of Form -->
+                                    <div class="form-group">
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label class="my-1 mr-2" for="client">Client</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
+                                                <select class="form-select" disabled>
+                                                    <option id="info_client" value="test" selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="nom">Nom</label>
+                                            <div class="input-group">
+                                                <textarea id="client_nom" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="prenom">Prénom</label>
+                                            <div class="input-group">
+                                                <textarea id="client_prenom" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                     <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="cr">Compte Rendu</label>
+                                            <div class="input-group">
+                                                <textarea id="lect_compterendu" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <button type="submit" class="btn btn-block btn-primary">Fermer la fiche client </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Modal Content -->
+
+      <!-- Modal modifier un client -->
+        <!-- Modal Content -->
+        <div class="modal fade" id="modal-form-modify" tabindex="-1" role="dialog" aria-labelledby="modal-form_signup" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card border-light p-4">
+                            <button type="button" class="btn-close ml-auto" data-dismiss="modal" aria-label="Close"></button>
+                            <div class="card-header border-0 text-center pb-0">
+                                <h2 class="h4">Modifier un client</h2>
+                                <span>Vous pouvez modifier la fiche client</span>
+                            </div>
+                            <div class="card-body">
+                                <form class="mt-4">
+                                    <!-- End of Form -->
+                                    <div class="form-group">
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label class="my-1 mr-2" for="id_client">Client</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
+                                                <select class="form-select" disabled>
+                                                    <option id="info_client" value="test" selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="nom">Nom</label>
+                                            <div class="input-group">
+                                                <textarea id="client_nom" class="form-control" ></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <div class="form-group">
+
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="prenom">Prénom</label>
+                                            <div class="input-group">
+                                                <textarea id="prenom_modify" class="form-control" ></textarea>
+                                            </div>
+                                        </div>
+                                        <!-- End of Form -->
+                                    </div>
+                                    <button type="submit" name="modify" class="btn btn-block btn-primary">Enregister</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Modal Content -->
 
         <!-- Modal ajout client -->
         <!-- Modal Content -->
@@ -83,25 +216,26 @@
                                     {{ createForm.hidden_tag() }}
                                     <!-- Form -->
                                     <div class="form-group mb-4">
-                                        <label for="login_email">Nom</label>
+                                        <label for="nom">Nom</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1"><span class="fas fa-signature"></span></span>
-                                            {{ createForm.nom(placeholder="DUPONT", class="form-control") }}
+                                            {{ createForm.nom( class="form-control") }}
                                         </div>
                                     </div>
                                     <!-- End of Form -->
                                     <div class="form-group">
                                         <!-- Form -->
                                         <div class="form-group mb-4">
-                                            <label for="login_password">Prénom</label>
+                                            <label for="prenom">Prénom</label>
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon2"><span class="fas fa-signature"></span></span>
-                                                {{ createForm.prenom(placeholder="Martin", class="form-control") }}
+                                                {{ createForm.prenom( class="form-control") }}
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
                                     <button type="submit" name="add" class="btn btn-block btn-primary">Enregister</button>
+                                    <button type="reset" class="btn btn-block btn-primary">Reset</button>
                                 </form>
                             </div>
                         </div>
@@ -114,36 +248,55 @@
       {% include 'includes/footer.html' %}
 
   </main>
+{% endblock content %}
+
 
 
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-    <script type="application/javascript">
-        $( document ).ready(function() {
+<script type="application/javascript">
+    $( document ).ready(function() {
             console.log( "ready!" );
-            $('button[name="btnDelete"]').on('click',function (){
-                console.log("it's find !")
-                id = $(this).val();
-                console.log(id);
-                $.ajax({
-                    url: './delete/'+id,
-                    crossDomain: true,
-                    crossOrigin: true,
-                    type: 'DELETE',
-                    success: function(result) {
-                        window.location.reload()
-                    },
-                    error: function (result){
-                        console.log(result)
-                    }
-                });
+            $('button[name="btnInfo"]').on('click', function (){
+                console.log('dans btnInfo ' );
+                var client = $(this).val();
+                console.log('client vaut :' + client.replaceAll('\'','"'));
+                var json = JSON.parse(client.replaceAll('\'','"'));
+                console.log('json vaut :' + json);
+                $('#info_client').html(json.client);
+                console.log('info_client remplacé par ' + json.client );
+                $('#client_nom').html(json.nom);
+                console.log('client_nom remplacé par '+ json.nom);
+                $('#client_prenom').html(json.prenom);
+                console.log('client_prenom remplacé par '+ json.prenom);
+                $('#lect_compterendu').html(json.cr);
+                console.log('lect_compterendu remplacé par '+ json.cr);
             });
-        });
-        function deleteClient(id){
 
-        }
-    </script>
+    });
+</script>
 
+
+<script type="application/javascript">
+    $( document2 ).ready(function() {
+            console.log( "ready!" );
+            $('button[name="btnModify"]').on('click', function (){
+                console.log('dans btnModify ' );
+                var client = $(this).val();
+                console.log('client vaut :' + client.replaceAll('\'','"'));
+                var json = JSON.parse(client.replaceAll('\'','"'));
+                console.log('json vaut :' + json);
+                $('#info_client').html(json.client);
+                console.log('info_client remplacé par ' + json.client );
+                $('#nom_modify').html(json.nom);
+                console.log('nom_mofidy remplacé par '+ json.nom_modify);
+                $('#prenom_modify').html(json.prenom);
+                console.log('prenom_modify remplacé par '+ json.prenom_modify);
+                $('#lect_compterendu').html(json.cr);
+                console.log('lect_compterendu remplacé par '+ json.cr);
+            });
+
+    });
+</script>
 {% endblock javascripts %}
-{% endblock content %}

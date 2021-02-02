@@ -10,7 +10,7 @@ from app import login_manager
 from jinja2 import TemplateNotFound
 
 
-apiURL = 'http://192.168.1.23:1234/'
+apiURL = 'http://0.0.0.0:1234/'
 
 
 @blueprint.route('/index')
@@ -36,7 +36,17 @@ def clients():
                                    msg='Erreur d\'ajout du client')
 
     if 'modify' in request.form:
-        return True;
+        # read data from create form
+        _toSend = request.form
+        # request to api
+        retour = requests.post(apiURL + 'client', json=_toSend)
+        _clients = requests.get(apiURL + 'clients').json()
+        if retour.status_code == 201:
+            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm)
+        else:
+            return render_template('clients.html', segment='clients', clients=_clients, createForm=_createForm,
+                                   msg='Erreur d\'ajout du client')
+
 
     if 'delete' in request.form:
         return True;
