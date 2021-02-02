@@ -64,6 +64,9 @@
 <!-- Volt CSS -->
 <link type="text/css" href="/static/assets/css/volt.css" rel="stylesheet">
 
+<!-- Datatable CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
     <!-- Specific Page CSS goes HERE  -->
     {% block stylesheets %}{% endblock stylesheets %}
 
@@ -92,12 +95,10 @@
             </div>
         </div>
     </div>
-
     {% include 'includes/scripts.html' %}    
     
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %}
-
     {% endblock javascripts %}
 
 </body>

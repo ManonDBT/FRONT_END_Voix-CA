@@ -54,6 +54,11 @@ def clients():
     return render_template('clients.html', segment='client', clients=_clients, createForm=_createForm)
 
 
+@blueprint.route('/tools/getdata/<int:id>', methods=['GET'])
+def get_data(id):
+    result = requests.get(apiURL + 'data/'+ str(id)).json()
+    return result
+
 @blueprint.route('/mescomptesrendu.html', methods=['GET', 'POST'])
 def data():
     _createForm = CreateData(request.form)

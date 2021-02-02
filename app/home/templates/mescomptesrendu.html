@@ -74,7 +74,7 @@
                               </td>
 
                               <td class="border-1">
-                                  <button class="btn btn-info" name="btnLecture" type="button" value="{'client':'{{data.client}}','cr':'{{data.compte_rendu}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
+                                  <button class="btn btn-info" name="btnLecture" type="button" value="{{data.id}}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
                           <!-- End of Item -->
@@ -125,8 +125,6 @@
                                         </div>
                                         <!-- End of Form -->
                                     </div>
-                                   <button type="submit" class="btn btn-block btn-primary">Fermer le compte rendu </button>
-
                                 </form>
                             </div>
                         </div>
@@ -180,7 +178,6 @@
                                         <!-- End of Form -->
                                     </div>
                                     <button type="submit" name="add" class="btn btn-block btn-primary">Enregister</button>
-                                    <button type="reset" class="btn btn-block btn-primary">Reset</button>
                                 </form>
                             </div>
                         </div>
@@ -201,19 +198,32 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
 <script type="application/javascript">
     $( document ).ready(function() {
             console.log( "ready!" );
-            $('button[name="btnLecture"]').on('click', function (){
+            $('#tblData').DataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+        }
+    });
+
+            $('body').on('click', 'button[name="btnLecture"]', function (){
                 console.log('dans btnLecture ' );
                 var data = $(this).val();
-                console.log('data vaut :' + data.replaceAll('\'','"'));
-                var json = JSON.parse(data.replaceAll('\'','"'));
-                console.log('json vaut :' + json);
-                $('#lect_client').html(json.client);
-                console.log('lect_client remplacé par ' + json.client );
-                $('#lect_compterendu').html(json.cr);
-                console.log('lect_compterendu remplacé par '+ json.cr);
+                $.ajax({
+                    url : '/tools/getdata/'+ data,
+                    type : 'GET', // Le type de la requête HTTP, ici devenu POST
+                    dataType : 'json',
+                    success: function (result, statut){
+                        console.log('success ajax lecture')
+                        console.log(result)
+                        console.log(result.Data[0].client)
+                        $('#lect_client').html(result.Data[0].client);
+                        $('#lect_compterendu').html(result.Data[0].cr);
+                    }
+                });
             });
 
     });
