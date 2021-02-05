@@ -39,7 +39,6 @@
                               <th class="border-1">#</th>
                               <th class="border-1">Nom</th>
                               <th class="border-1">Prénom</th>
-                              <th class="border-1">Caisse Régionale</th>
                               <th class="border-1">Action</th>
                           </tr>
                       </thead>
@@ -52,7 +51,6 @@
                               <td class="border-1"><a href="#" class="text-primary font-weight-bold">{{ client.id }}</a> </td>
                               <td class="border-1 font-weight-bold">{{ client.nom }}</td>
                               <td class="border-1">{{ client.prenom }}</td>
-                              <td class="border-1"> {{ client.id }}</td>
                               <td class="border-1">
                                   <button class="btn btn-info" name="btnInfo" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-file-alt"></i> </button>
                                   <button class="btn btn-warning" name="btnModify" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-edit"></i> </button>
@@ -129,7 +127,6 @@
                                         </div>
                                         <!-- End of Form -->
                                     </div>
-                                    <button type="submit" class="btn btn-block btn-primary">Fermer la fiche client </button>
                                 </form>
                             </div>
                         </div>
@@ -157,7 +154,7 @@
                                     <div class="form-group">
                                         <!-- Form -->
                                         <div class="form-group mb-4">
-                                            <label class="my-1 mr-2" for="id_client">Client</label>
+                                            <label class="my-1 mr-2" for="client">Client</label>
                                             <div class="input-group">
                                                 <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
                                                 <select class="form-select" disabled>
@@ -173,7 +170,7 @@
                                         <div class="form-group mb-4">
                                             <label for="nom">Nom</label>
                                             <div class="input-group">
-                                                <textarea id="client_nom" class="form-control" ></textarea>
+                                                <textarea id="nom_modify" class="form-control" ></textarea>
                                             </div>
                                         </div>
                                         <!-- End of Form -->
@@ -258,7 +255,8 @@
 <script type="application/javascript">
     $( document ).ready(function() {
             console.log( "ready!" );
-            $('button[name="btnInfo"]').on('click', function (){
+
+            $('body').on('click', 'button[name="btnInfo"]', function (){
                 console.log('dans btnInfo ' );
                 var client = $(this).val();
                 console.log('client vaut :' + client.replaceAll('\'','"'));
@@ -279,9 +277,10 @@
 
 
 <script type="application/javascript">
-    $( document2 ).ready(function() {
+    $( document ).ready(function() {
             console.log( "ready!" );
-            $('button[name="btnModify"]').on('click', function (){
+
+            $('body').on('click', 'button[name="btnModidy"]', function (){
                 console.log('dans btnModify ' );
                 var client = $(this).val();
                 console.log('client vaut :' + client.replaceAll('\'','"'));
@@ -293,8 +292,7 @@
                 console.log('nom_mofidy remplacé par '+ json.nom_modify);
                 $('#prenom_modify').html(json.prenom);
                 console.log('prenom_modify remplacé par '+ json.prenom_modify);
-                $('#lect_compterendu').html(json.cr);
-                console.log('lect_compterendu remplacé par '+ json.cr);
+
             });
 
     });

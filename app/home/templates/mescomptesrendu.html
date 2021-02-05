@@ -24,9 +24,6 @@
                     <p class="mb-0">Analyse de mes comptes-rendus</p>
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group" style="margin-right:0.5rem;">
-                        <div type="button" class="btn btn-primary" >Exporter</div>
-                    </div>
                     <div class="btn-group">
                         <div><a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-form"><i class="fas fa-plus mr-1"></i> Nouveau</a>
                         </div>
@@ -51,10 +48,10 @@
                         {% for data in datas.Data %}
                           <!-- Item -->
                           <tr>
-                              <td class="border-1"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
-                              <td class="border-1 font-weight-bold">{{ data.datecreation }}</td>
-                              <td class="border-1">{{ data.client }}</td>
-                              <td class="border-1">
+                              <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
+                              <td class="border-0 font-weight-bold">{{ data.datecreation }}</td>
+                              <td class="border-0">{{ data.client }}</td>
+                              <td class="border-0">
                                   {% if 'null' not in data.categories %}
                                   {% set washdata = data.categories.replace('"','').replace('[','').replace(']','') %}
                                   {% set list1 = washdata.split(',') %}
@@ -65,7 +62,7 @@
                                     </ul>
                                   {% endif %}
                               </td>
-                              <td class="border-1">
+                              <td class="border-0">
                                   {% if data.traitement == true %}
                                     <i class="fas fa-check-circle btn-lg" style="color: green"></i>
                                   {% else %}
@@ -73,7 +70,7 @@
                                   {% endif %}
                               </td>
 
-                              <td class="border-1">
+                              <td class="border-0">
                                   <button class="btn btn-info" name="btnLecture" type="button" value="{{data.id}}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
