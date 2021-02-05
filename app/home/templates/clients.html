@@ -272,14 +272,6 @@
                 console.log('lect_compterendu remplacé par '+ json.cr);
             });
 
-    });
-</script>
-
-
-<script type="application/javascript">
-    $( document ).ready(function() {
-            console.log( "ready!" );
-
             $('body').on('click', 'button[name="btnModidy"]', function (){
                 console.log('dans btnModify ' );
                 var client = $(this).val();
@@ -295,6 +287,26 @@
 
             });
 
+            $('body').on('click', 'button[name="btnDelete"]', function (){
+                _id = $(this).val();
+                if (window.confirm("Supprimer le client "+ _id) == true) {
+                    $.ajax({
+                        url: '/tools/delete/client/' + _id,
+                        type: 'DELETE',
+                        success: function (result) {
+                            document.location.reload();
+                        },
+                        error: function (){
+                          document.location.reload();
+                        },
+                        done:function (){
+                            document.location.reload()
+                        }
+                    })
+                }
+            });
+
     });
 </script>
+
 {% endblock javascripts %}

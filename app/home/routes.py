@@ -59,6 +59,11 @@ def get_data(id):
     result = requests.get(apiURL + 'data/'+ str(id)).json()
     return result
 
+@blueprint.route('/tools/delete/client/<int:id>', methods=['DELETE'])
+def delete_client(id):
+    result = requests.delete(apiURL+'/client/'+str(id)).json()
+    return result
+
 @blueprint.route('/mescomptesrendu.html', methods=['GET', 'POST'])
 def data():
     _createForm = CreateData(request.form)
@@ -75,9 +80,6 @@ def data():
         else:
             return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,clients=_listeclient,
                                    msg='Erreur d\'ajout du compte-rendu')
-
-    if 'delete' in request.form:
-        return True;
     _datas = requests.get(apiURL + 'datas/extended').json()
     return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 

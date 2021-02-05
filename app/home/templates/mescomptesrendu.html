@@ -48,10 +48,10 @@
                         {% for data in datas.Data %}
                           <!-- Item -->
                           <tr>
-                              <td class="border-0"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
-                              <td class="border-0 font-weight-bold">{{ data.datecreation }}</td>
-                              <td class="border-0">{{ data.client }}</td>
-                              <td class="border-0">
+                              <td class="border-1 border-gray-400"><a href="#" class="text-primary font-weight-bold">{{ data.id }}</a> </td>
+                              <td class="border-1 border-gray-400 font-weight-bold">{{ data.datecreation }}</td>
+                              <td class="border-1 border-gray-400">{{ data.client }}</td>
+                              <td class="border-1 border-gray-400">
                                   {% if 'null' not in data.categories %}
                                   {% set washdata = data.categories.replace('"','').replace('[','').replace(']','') %}
                                   {% set list1 = washdata.split(',') %}
@@ -62,7 +62,7 @@
                                     </ul>
                                   {% endif %}
                               </td>
-                              <td class="border-0">
+                              <td class="border-1 border-gray-400">
                                   {% if data.traitement == true %}
                                     <i class="fas fa-check-circle btn-lg" style="color: green"></i>
                                   {% else %}
@@ -70,7 +70,7 @@
                                   {% endif %}
                               </td>
 
-                              <td class="border-0">
+                              <td class="border-1 border-gray-400">
                                   <button class="btn btn-info" name="btnLecture" type="button" value="{{data.id}}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-eye"></i></button>
                               </td>
                           </tr>
