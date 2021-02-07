@@ -71,13 +71,13 @@ def data():
         _toSend = request.form
         # request to api
         retour = requests.post(apiURL + 'data', json=_toSend)
-        _datas = requests.get(apiURL + 'datas/extended').json()
+        _datas = requests.get(apiURL + 'datas/extended/collab/'+current_user.username).json()
         if retour.status_code == 201:
             return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
         else:
             return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm,clients=_listeclient,
                                    msg='Erreur d\'ajout du compte-rendu')
-    _datas = requests.get(apiURL + 'datas/extended').json()
+    _datas = requests.get(apiURL + 'datas/extended/collab/'+current_user.username).json()
     return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 
 
