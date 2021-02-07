@@ -80,6 +80,10 @@ def data():
     _datas = requests.get(apiURL + 'datas/extended/collab/'+current_user.username).json()
     return render_template('mescomptesrendu.html', segment='mescomptesrendu', datas=_datas, createForm=_createForm, clients=_listeclient)
 
+@blueprint.route('/recherche.html', methods=['GET', 'POST'])
+def recherche():
+    _datas = requests.get(apiURL + 'datas/extended').json()
+    return render_template('recherche.html', segment='recherche', datas=_datas)
 
 
 
