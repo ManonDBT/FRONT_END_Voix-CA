@@ -52,8 +52,8 @@
                               <td class="border-1 font-weight-bold">{{ client.nom }}</td>
                               <td class="border-1">{{ client.prenom }}</td>
                               <td class="border-1">
-                                  <button class="btn btn-info" name="btnInfo" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-file-alt"></i> </button>
-                                  <button class="btn btn-warning" name="btnModify" type="button" value="{'client':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-edit"></i> </button>
+                                  <button class="btn btn-info" name="btnInfo" type="button" value="{{client.id}}" data-toggle="modal" data-target="#modal-form-signup" ><i class="far fa-file-alt"></i> </button>
+                                  <button class="btn btn-warning" name="btnModify" type="button" value="{'client_id':'{{client.id}}','nom':'{{client.nom}}', 'prenom': '{{client.prenom}}'}" data-toggle="modal" data-target="#modal-form-modify" ><i class="far fa-edit"></i> </button>
                                   <button class="btn btn-danger" type="button" name="btnDelete" value="{{ client.id }}"><i class="fas fa-trash"></i>
                                   </button>
                               </td>
@@ -69,65 +69,32 @@
       <!-- Modal lecture d'un client -->
         <!-- Modal Content -->
         <div class="modal fade" id="modal-form-signup" tabindex="-1" role="dialog" aria-labelledby="modal-form_signup" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body p-0">
                         <div class="card border-light p-4">
                             <button type="button" class="btn-close ml-auto" data-dismiss="modal" aria-label="Close"></button>
                             <div class="card-header border-0 text-center pb-0">
-                                <h2 class="h4">Consultation d'un client</h2>
-                                <span>Vous consultez ici la fiche client</span>
+                                <h2 class="h4">Consultation des comptes-rendu du client</h2>
+                                <span>Vous consultez ici tous les comptes rendu du client</span>
                             </div>
                             <div class="card-body">
-                                <form class="mt-4">
-                                    <!-- End of Form -->
-                                    <div class="form-group">
-                                        <!-- Form -->
-                                        <div class="form-group mb-4">
-                                            <label class="my-1 mr-2" for="client">Client</label>
-                                            <div class="input-group">
-                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
-                                                <select class="form-select" disabled>
-                                                    <option id="info_client" value="test" selected></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!-- End of Form -->
-                                    </div>
-                                    <div class="form-group">
-
-                                        <!-- Form -->
-                                        <div class="form-group mb-4">
-                                            <label for="nom">Nom</label>
-                                            <div class="input-group">
-                                                <textarea id="client_nom" class="form-control" readonly></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- End of Form -->
-                                    </div>
-                                    <div class="form-group">
-
-                                        <!-- Form -->
-                                        <div class="form-group mb-4">
-                                            <label for="prenom">Prénom</label>
-                                            <div class="input-group">
-                                                <textarea id="client_prenom" class="form-control" readonly></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- End of Form -->
-                                    </div>
-                                     <div class="form-group">
-
-                                        <!-- Form -->
-                                        <div class="form-group mb-4">
-                                            <label for="cr">Compte Rendu</label>
-                                            <div class="input-group">
-                                                <textarea id="lect_compterendu" class="form-control" readonly></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- End of Form -->
-                                    </div>
-                                </form>
+                                <div class="visually-hidden">
+                                <input type="text" id="lect_clientid"></input>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap mb-0 rounded" id="tblDataClient">
+                                      <thead class="thead-light">
+                                          <tr>
+                                              <th class="border-1">#</th>
+                                              <th class="border-1">Date</th>
+                                              <th class="border-1">Traitement</th>
+                                              <th class="border-1">Thèmes</th>
+                                              <th class="border-1">Contenu</th>
+                                          </tr>
+                                      </thead>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,42 +118,37 @@
                             <div class="card-body">
                                 <form class="mt-4">
                                     <!-- End of Form -->
-                                    <div class="form-group">
+                                    <div style="display: none">
                                         <!-- Form -->
-                                        <div class="form-group mb-4">
-                                            <label class="my-1 mr-2" for="client">Client</label>
+                                        <div class="form-group mb4">
+                                            <label class="my-1 mr-2" for="">Client</label>
                                             <div class="input-group">
-                                                <span class="input-group-text" id="basic-addon2" ><span class="fas fa-user"></span></span>
-                                                <select class="form-select" disabled>
-                                                    <option id="info_client" value="test" selected></option>
-                                                </select>
+                                                <input type="text" id="modify_clientid"></input>
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
                                     <div class="form-group">
-
                                         <!-- Form -->
                                         <div class="form-group mb-4">
-                                            <label for="nom">Nom</label>
+                                            <label for="">Nom</label>
                                             <div class="input-group">
-                                                <textarea id="nom_modify" class="form-control" ></textarea>
+                                                <input type="text" id="modify_nom" class="form-control" ></input>
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
                                     <div class="form-group">
-
                                         <!-- Form -->
                                         <div class="form-group mb-4">
-                                            <label for="prenom">Prénom</label>
+                                            <label for="">Prénom</label>
                                             <div class="input-group">
-                                                <textarea id="prenom_modify" class="form-control" ></textarea>
+                                                <input type="text" id="modify_prenom" class="form-control" ></input>
                                             </div>
                                         </div>
                                         <!-- End of Form -->
                                     </div>
-                                    <button type="submit" name="modify" class="btn btn-block btn-primary">Enregister</button>
+                                    <button name="modify" class="btn btn-block btn-primary">Enregister</button>
                                 </form>
                             </div>
                         </div>
@@ -252,39 +214,58 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+
 <script type="application/javascript">
     $( document ).ready(function() {
             console.log( "ready!" );
 
             $('body').on('click', 'button[name="btnInfo"]', function (){
                 console.log('dans btnInfo ' );
-                var client = $(this).val();
-                console.log('client vaut :' + client.replaceAll('\'','"'));
-                var json = JSON.parse(client.replaceAll('\'','"'));
-                console.log('json vaut :' + json);
-                $('#info_client').html(json.client);
-                console.log('info_client remplacé par ' + json.client );
-                $('#client_nom').html(json.nom);
-                console.log('client_nom remplacé par '+ json.nom);
-                $('#client_prenom').html(json.prenom);
-                console.log('client_prenom remplacé par '+ json.prenom);
-                $('#lect_compterendu').html(json.cr);
-                console.log('lect_compterendu remplacé par '+ json.cr);
+                $('#lect_clientid').attr('value', $(this).val());
+                table.clear().draw();
+                console.log('cleaned');
+                console.log($(this).val());
+                table.ajax.url('/tools/get/data/client/'+ $(this).val()).load();
+                console.log('reloaded')
             });
 
-            $('body').on('click', 'button[name="btnModidy"]', function (){
+            $('body').on('click', 'button[name="btnModify"]', function (){
                 console.log('dans btnModify ' );
-                var client = $(this).val();
-                console.log('client vaut :' + client.replaceAll('\'','"'));
-                var json = JSON.parse(client.replaceAll('\'','"'));
+                var data = $(this).val();
+                console.log('data vaut :' + data.replaceAll('\'','"'));
+                var json = JSON.parse(data.replaceAll('\'','"'));
                 console.log('json vaut :' + json);
-                $('#info_client').html(json.client);
-                console.log('info_client remplacé par ' + json.client );
-                $('#nom_modify').html(json.nom);
-                console.log('nom_mofidy remplacé par '+ json.nom_modify);
-                $('#prenom_modify').html(json.prenom);
-                console.log('prenom_modify remplacé par '+ json.prenom_modify);
+                $('#modify_clientid').attr('value',json.client_id);
+                console.log('info_client remplacé par ' + json.client_id );
+                $('#modify_nom').attr('value',json.nom);
+                console.log('nom_mofidy remplacé par '+ json.nom);
+                $('#modify_prenom').attr('value',json.prenom);
+                console.log('prenom_modify remplacé par '+ json.prenom);
+            });
 
+            $('body').on('click', 'button[name="modify"]', function (){
+                _id = $('#modify_clientid').val()
+                _nom = $('#modify_nom').val()
+                _prenom = $('#modify_prenom').val()
+                $.ajax({
+                        url: '/tools/update/client/' + _id,
+                        type: 'PUT',
+                        data: {'nom': _nom, 'prenom': _prenom},
+                        dataType: 'json',
+                    success: function (){
+                            console.log('AJAX SUCCESS');
+                            document.location.reload();
+                    },
+                    error: function (){
+                            console.log('AJAX ERROR');
+                            document.location.reload();
+                    },
+                    done: function (){
+                            console.log('AJAX DONE');
+                            document.location.reload();
+                    }
+                })
             });
 
             $('body').on('click', 'button[name="btnDelete"]', function (){
@@ -306,6 +287,49 @@
                 }
             });
 
+            var table = $('#tblDataClient').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+                },
+                ajax:{
+                    url: '/tools/get/data/client/'+1,
+                    type:'GET',
+                    dataType: 'json',
+                    dataSrc: 'Data'
+                },
+                columns:[
+                    {data: 'id'},
+                    {
+                        render: function (data,type,row){
+                            var datecrea = new Date(row.datecreation);
+                            return datecrea.toLocaleString('fr-FR', { timeZone: 'UTC' })
+                        }
+                    },
+                    {
+                        render: function (data, type, row){
+                            if (row.traitement){
+                                return '<i className="fas fa-check-circle btn-lg" style="color: green"></i>';
+                            }else{
+                                return '<i class="fas fa-times-circle btn-lg" style="color: red"></i>'
+                            }
+                        }
+                    },
+                    {
+                        render: function (data, type, row){
+                            if (row.categories.includes('null')){
+                                return '';
+                            }else{
+                                return row.categories;
+                            }
+                        }
+                    },
+                    {
+                        render: function (data, type, row){
+                            return '<textarea readonly>'+ row.compte_rendu +'</textarea>';
+                        }
+                    }
+                ]
+            });
     });
 </script>
 
