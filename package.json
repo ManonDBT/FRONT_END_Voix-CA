@@ -1,17 +1,14 @@
 {
-  "name": "flask-dashboard-volt",
+  "name": "Portail Collaborateur lite",
   "mastertemplate": "boilerplate-code-flask-dashboard",
-  "version": "1.0.1",
-  "description": "Template project - Flask Boilerplate Code",
+  "version": "1.0.0",
+  "description": "Reproduction du portail collaborateur",
   "repository": {
       "type": "git",
-      "url": "https://github.com/app-generator/flask-dashboard-volt"
+      "url": "https://github.com/ManonDBT/VoixCA_Flask_FrontEnd"
   },
-  "bugs": {
-      "url": "https://github.com/app-generator/flask-dashboard-volt/issues",
-      "email": "support@appseed.us"
-  },
-  "author": "AppSeed App Generator <support@appseed.us> (https://appseed.us)",
+
+  "author": "Manon DEBOUT",
   "engines": {
       "node": ">=10.0.0"
   },
