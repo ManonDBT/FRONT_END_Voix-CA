@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
 from flask_migrate import Migrate
-from os import environ
+
 from sys import exit
 from decouple import config
-import logging
+
 
 from config import config_dict
 from app import create_app, db
