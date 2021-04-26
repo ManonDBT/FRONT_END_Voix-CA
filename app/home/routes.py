@@ -10,7 +10,7 @@ from app import login_manager
 from jinja2 import TemplateNotFound
 
 
-apiURL = 'http://0.0.0.0:1234/'
+apiURL = 'http://0.0.0.0:4666/'
 
 
 @blueprint.route('/index')
