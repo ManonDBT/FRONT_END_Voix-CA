@@ -6,6 +6,7 @@
 Le Front-End permet une utilisation plus simple de l'[API](https://github.com/ManonDBT/API_Voix-CA). 
 
 ## Front application 
+
 L'application se découpe en plusieurs vues:
 - Un écran d'accueil 
 ![schéma](https://drive.google.com/uc?export=view&id=1EMa9hucnBgYr45LWtkzgX4ZC9Ys6D-mz)
@@ -30,3 +31,4 @@ Le collaborateur doit en premier temps se connecter sur l'application avec ses i
 2. Installer l'environnement de python en 3.9 
 3. Installer les bibliothèques 
 4. Run le fichier [run.py](https://github.com/ManonDBT/FRONT_END_Voix-CA/blob/master/run.py)
+
