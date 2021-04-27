@@ -8,6 +8,7 @@ Le Front-End permet une utilisation plus simple de l'[API](https://github.com/Ma
 ## Front application 
 L'application se découpe en plusieurs vues:
 - Un écran d'accueil 
+
 ![schéma](https://drive.google.com/uc?export=view&id=1EMa9hucnBgYr45LWtkzgX4ZC9Ys6D-mz)
 
 - La base de données clients
