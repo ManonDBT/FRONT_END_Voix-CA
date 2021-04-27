@@ -29,6 +29,6 @@ Le collaborateur doit en premier temps se connecter sur l'application avec ses i
 
 1. Run le fichier [api.py](https://github.com/ManonDBT/API_Voix-CA/blob/main/api.py)
 2. Installer l'environnement de python en 3.9 
-3. Installer les bibliothèques 
+3. Installer les bibliothèques [requirement.txt](https://github.com/ManonDBT/FRONT_END_Voix-CA/blob/master/requirement.txt)
 4. Run le fichier [run.py](https://github.com/ManonDBT/FRONT_END_Voix-CA/blob/master/run.py)
 
